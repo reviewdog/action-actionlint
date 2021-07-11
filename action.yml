@@ -6,6 +6,10 @@ inputs:
     description: 'GITHUB_TOKEN.'
     default: '${{ github.token }}'
     required: true
+  tool_name:
+    description: 'Tool name to use for reviewdog reporter'
+    default: 'golangci'
+    required: true
   level:
     description: 'Report level for reviewdog [info,warning,error]'
     default: 'error'

@@ -11,6 +11,7 @@ jobs:
         uses: ./
         with:
           actionlint_flags: examples/broken-workflow.yml
+          tool_name: actionlint
 
   shellcheck:
     name: runner / shellcheck
@@ -21,3 +22,4 @@ jobs:
         uses: ./
         with:
           actionlint_flags: examples/shellcheck.yml
+          tool_name: shellcheck
