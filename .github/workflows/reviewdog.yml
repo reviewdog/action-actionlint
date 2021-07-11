@@ -9,3 +9,5 @@ jobs:
       - uses: actions/checkout@v2
       - name: actionlint
         uses: ./
+        with:
+          actionlint_flags: examples/broken-workflow.yml
