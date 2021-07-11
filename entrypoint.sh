@@ -2,7 +2,7 @@
 
 export REVIEWDOG_GITHUB_API_TOKEN="${INPUT_GITHUB_TOKEN}"
 
-actionlint -oneline \
+actionlint -oneline ${INPUT_ACTIONLINT_FLAGS} \
     | reviewdog \
         -efm="%f:%l:%c: %m" \
         -name="actionlint" \

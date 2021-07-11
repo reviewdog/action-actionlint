@@ -33,6 +33,10 @@ inputs:
     description: 'Additional reviewdog flags'
     default: ''
     required: false
+  actionlint_flags:
+    description: 'Additional actionlint flags'
+    default: ''
+    required: false
 runs:
   using: 'docker'
   image: 'Dockerfile'
