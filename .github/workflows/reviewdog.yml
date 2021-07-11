@@ -1,0 +1,11 @@
+
+name: reviewdog
+on: [pull_request]
+jobs:
+  actionlint:
+    name: runner / actionlint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: actionlint
+        uses: ./

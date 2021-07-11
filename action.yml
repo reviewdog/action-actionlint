@@ -1,0 +1,10 @@
+name: 'actionlint with reviewdog'
+description: 'run actionlint with reviewdog'
+author: '@shogo82148'
+inputs:
+  github_token:
+    description: 'GITHUB_TOKEN.'
+    default: '${{ github.token }}'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
