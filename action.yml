@@ -5,6 +5,34 @@ inputs:
   github_token:
     description: 'GITHUB_TOKEN.'
     default: '${{ github.token }}'
+    required: true
+  level:
+    description: 'Report level for reviewdog [info,warning,error]'
+    default: 'error'
+    required: true
+  reporter:
+    description: |
+      Reporter of reviewdog command [github-pr-check,github-pr-review,github-check].
+      Default is github-pr-check.
+      github-pr-review can use Markdown and add a link to rule page in reviewdog reports.
+    default: 'github-pr-check'
+    required: true
+  filter_mode:
+    description: |
+      Filtering mode for the reviewdog command [added,diff_context,file,nofilter].
+      Default is added.
+    default: 'added'
+    required: true
+  fail_on_error:
+    description: |
+      Exit code for reviewdog when errors are found [true,false]
+      Default is `false`.
+    default: 'false'
+    required: true
+  reviewdog_flags:
+    description: 'Additional reviewdog flags'
+    default: ''
+    required: false
 runs:
   using: 'docker'
   image: 'Dockerfile'
