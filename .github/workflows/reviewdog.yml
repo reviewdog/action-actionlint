@@ -23,3 +23,14 @@ jobs:
         with:
           actionlint_flags: examples/shellcheck.yml
           tool_name: shellcheck
+
+  pyflakes:
+    name: runner / pyflakes
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: actionlint w/ pyflakes
+        uses: ./
+        with:
+          actionlint_flags: examples/pyflakes.yml
+          tool_name: pyflakes
