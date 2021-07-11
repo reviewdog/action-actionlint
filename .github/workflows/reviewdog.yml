@@ -11,3 +11,15 @@ jobs:
         uses: ./
         with:
           actionlint_flags: examples/broken-workflow.yml
+          tool_name: actionlint
+
+  shellcheck:
+    name: runner / shellcheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: actionlint w/ shellcheck
+        uses: ./
+        with:
+          actionlint_flags: examples/shellcheck.yml
+          tool_name: shellcheck

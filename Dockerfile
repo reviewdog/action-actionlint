@@ -1,4 +1,4 @@
-FROM alpine:3.14
+FROM koalaman/shellcheck-alpine:latest
 
 RUN apk --update add git curl && \
     rm -rf /var/lib/apt/lists/* && \
