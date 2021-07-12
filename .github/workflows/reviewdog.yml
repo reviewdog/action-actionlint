@@ -10,8 +10,18 @@ jobs:
       - name: actionlint
         uses: ./
         with:
-          actionlint_flags: examples/broken-workflow.yml
           tool_name: actionlint
+
+  reviewdog:
+    name: runner / reviewdog
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: actionlint w/ reviewdog
+        uses: ./
+        with:
+          actionlint_flags: examples/broken-workflow.yml
+          tool_name: reviewdog
 
   shellcheck:
     name: runner / shellcheck
