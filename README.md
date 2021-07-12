@@ -14,9 +14,6 @@ code review experience.
 
 Optional. golangci-lint flags. (actionlint -onelint `<actionlint_flags>`)
 
-Note that you can change golangci-lint behavior by [configuration
-file](https://github.com/golangci/golangci-lint#configuration) too.
-
 ### `tool_name`
 
 Optional. Tool name to use for reviewdog reporter. Useful when running multiple
