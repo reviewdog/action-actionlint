@@ -12,7 +12,7 @@ code review experience.
 
 ### `actionlint_flags`
 
-Optional. actionlint flags. (actionlint -onelint `<actionlint_flags>`)
+Optional. actionlint flags. (actionlint -oneline `<actionlint_flags>`)
 
 ### `tool_name`
 
