@@ -4,6 +4,19 @@ This action runs [actionlint](https://github.com/rhysd/actionlint) with
 [reviewdog](https://github.com/reviewdog/reviewdog) on pull requests to improve
 code review experience.
 
+## Example usages
+
+```yaml
+name: reviewdog
+on: [pull_request]
+jobs:
+  actionlint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: reviewdog/action-actionlint@v1
+```
+
 ## Inputs
 
 ### `github_token`
