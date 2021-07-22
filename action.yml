@@ -44,3 +44,6 @@ inputs:
 runs:
   using: 'docker'
   image: 'Dockerfile'
+branding:
+  color: red
+  icon: check-circle
