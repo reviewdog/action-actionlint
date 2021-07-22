@@ -1,0 +1,31 @@
+name: 'bumpr - Bump version when merging Pull Request with specific labels'
+description: 'Bump version when merging Pull Request with specific labels (bump:major,bump:minor,bump:patch)'
+author: 'haya14busa'
+inputs:
+  default_bump_level:
+    description: "Default bump level if labels are not attached [major,minor,patch]. Do nothing if it's empty"
+    required: false
+  dry_run:
+    description: "Do not actually tag next version if it's true"
+    required: false
+  github_token:
+    description: 'GITHUB_TOKEN to list pull requests'
+    default: '${{ github.token }}'
+    required: true
+outputs:
+  current_version:
+    description: "current version"
+  next_version:
+    description: "next version"
+  skip:
+    description: "True if release is skipped. e.g. No labels attached to PR."
+  message:
+    description: "Tag message"
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+
+# Ref: https://haya14busa.github.io/github-action-brandings/
+branding:
+  icon: 'corner-right-up'
+  color: 'gray-dark'
