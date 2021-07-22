@@ -19,7 +19,7 @@ jobs:
       # Bump version on merging Pull Requests with specific labels.
       # (bump:major,bump:minor,bump:patch)
       - id: bumpr
-        uses: haya14busa/action-bumpr@v1
+        uses: ./.github/action-bumpr
         with:
           dry_run: true
 
