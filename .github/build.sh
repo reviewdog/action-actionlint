@@ -20,7 +20,7 @@ git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
 
 # checkout releases branch
 git checkout main
-git checkout -b "releases/v$MAJOR" "origin/releases/$MAJOR" || git checkout -b "releases/$MAJOR" main
+git checkout -b "releases/$MAJOR" "origin/releases/$MAJOR" || git checkout -b "releases/$MAJOR" main
 git merge -X theirs --no-ff -m "Merge branch 'main' into releases/$MAJOR" main || true
 
 # configure to use the pre-built image
