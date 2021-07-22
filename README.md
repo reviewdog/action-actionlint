@@ -4,6 +4,13 @@ This action runs [actionlint](https://github.com/rhysd/actionlint) with
 [reviewdog](https://github.com/reviewdog/reviewdog) on pull requests to improve
 code review experience.
 
+![example of broken workflow](https://user-images.githubusercontent.com/1157344/126649071-200f4e40-c507-4a17-952f-2ed7f30d8df7.png)
+
+[shellcheck](https://github.com/koalaman/shellcheck) and [pyflakes](https://github.com/PyCQA/pyflakes) integrations are enabled by default.
+
+![example of shellcheck](https://user-images.githubusercontent.com/1157344/126648951-b712cfbf-e12f-4d4b-842e-2c15b5181ae5.png)
+![example of pyflakes](https://user-images.githubusercontent.com/1157344/126649211-c4943c9c-7238-486c-9b28-8e39bd172a8a.png)
+
 ## Example usages
 
 ```yaml
