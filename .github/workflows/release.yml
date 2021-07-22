@@ -18,7 +18,8 @@ jobs:
       # (bump:major,bump:minor,bump:patch)
       - id: bumpr
         uses: haya14busa/action-bumpr@v1
-        dry_run: true
+        with:
+          dry_run: true
 
       # build the Docker Image
       - name:
