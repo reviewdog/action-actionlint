@@ -25,7 +25,7 @@ jobs:
 
       # build the Docker Image
       - name:
-        if: "${{ !steps.bumpr.outputs.skip }}"
+        if: "${{ steps.bumpr.outputs.skip != 'true' }}"
         run: |
           ./.github/build.sh
         env:
@@ -34,7 +34,7 @@ jobs:
 
       # Create release.
       - uses: shogo82148/actions-create-release@v1
-        if: "${{ !steps.bumpr.outputs.skip }}"
+        if: "${{ steps.bumpr.outputs.skip != 'true' }}"
         with:
           tag_name: ${{ steps.bumpr.outputs.next_version }}
           release_name: Release ${{ steps.bumpr.outputs.next_version }}
