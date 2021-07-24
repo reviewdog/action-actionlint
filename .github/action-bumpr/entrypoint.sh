@@ -119,7 +119,7 @@ echo "Bump ${BUMP_LEVEL} version"
 # checkout current major release branch
 MAJOR=v1
 git fetch --tags -f # Fetch existing tags before bump.
-git fetch --prune --unshallow
+git fetch --prune --unshallow || true
 git checkout main
 git checkout -b "releases/$MAJOR" "origin/releases/$MAJOR" || git checkout -b "releases/$MAJOR" main
 
