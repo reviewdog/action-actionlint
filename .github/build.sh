@@ -18,6 +18,13 @@ docker logout ghcr.io
 git config user.name "${GITHUB_ACTOR}"
 git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
 
+# update major version if it is bumped.
+git checkout main
+perl -i -pe "s/MAJOR=.*/MAJOR=$MAJOR/" ".github/action-bumpr/entrypoint.sh"
+git add ".github/action-bumpr/entrypoint.sh"
+git commit -m "bump $MAJOR" || true
+git push -u origin main
+
 # checkout releases branch
 git checkout main
 git checkout -b "releases/$MAJOR" "origin/releases/$MAJOR" || git checkout -b "releases/$MAJOR" main
