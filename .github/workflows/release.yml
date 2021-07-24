@@ -48,4 +48,4 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Post bumpr status comment
-        uses: haya14busa/action-bumpr@v1
+        uses: ./.github/action-bumpr
