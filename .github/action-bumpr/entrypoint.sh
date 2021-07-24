@@ -1,5 +1,10 @@
-#!/bin/sh
+#!/bin/bash
 set -e
+
+TEMP_PATH="$(mktemp -d)"
+trap 'rm -rf "$TEMP_PATH"' EXIT
+PATH="${TEMP_PATH}:$PATH"
+curl -sfL https://raw.githubusercontent.com/haya14busa/bump/master/install.sh| sh -s -- -b "${TEMP_PATH}" "${BUMP_VERSION}" 2>&1
 
 if [ -n "${GITHUB_WORKSPACE}" ]; then
   cd "${GITHUB_WORKSPACE}" || exit
@@ -111,10 +116,12 @@ if [ -z "${BUMP_LEVEL}" ]; then
 fi
 echo "Bump ${BUMP_LEVEL} version"
 
-# DO NOT FETCH in action-actionlint. we do it in previous step.
-# git fetch --tags -f # Fetch existing tags before bump.
-# # Fetch history as well because bump uses git history (git tag --merged).
-# git fetch --prune --unshallow
+# checkout current major release branch
+MAJOR=v1
+git fetch --tags -f # Fetch existing tags before bump.
+git fetch --prune --unshallow
+git checkout main
+git checkout -b "releases/$MAJOR" "origin/releases/$MAJOR" || git checkout -b "releases/$MAJOR" main
 
 CURRENT_VERSION="$(bump current)" || true
 NEXT_VERSION="$(bump ${BUMP_LEVEL})" || true

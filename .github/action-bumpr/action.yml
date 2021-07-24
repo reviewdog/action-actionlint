@@ -22,8 +22,15 @@ outputs:
   message:
     description: "Tag message"
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
+  using: "composite"
+  steps:
+    - run: ${{ github.action_path }}/entrypoint.sh
+      shell: bash
+      env:
+        BUMP_VERSION: v1.1.0
+        INPUT_GITHUB_TOKEN: ${{ inputs.github_token }}
+        INPUT_DRY_RUN: ${{ inputs.dry_run }}
+        INPUT_DEFAULT_BUMP_LEVEL: ${{ inputs.DEFAULT_BUMP_LEVEL }}
 
 # Ref: https://haya14busa.github.io/github-action-brandings/
 branding:
