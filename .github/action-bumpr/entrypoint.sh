@@ -1,5 +1,10 @@
-#!/bin/sh
+#!/bin/bash
 set -e
+
+TEMP_PATH="$(mktemp -d)"
+trap 'rm -rf "$TEMP_PATH"' EXIT
+PATH="${TEMP_PATH}:$PATH"
+curl -sfL https://raw.githubusercontent.com/haya14busa/bump/master/install.sh| sh -s -- -b "${TEMP_PATH}" "${BUMP_VERSION}" 2>&1
 
 if [ -n "${GITHUB_WORKSPACE}" ]; then
   cd "${GITHUB_WORKSPACE}" || exit
