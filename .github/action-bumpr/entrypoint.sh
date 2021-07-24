@@ -1,6 +1,9 @@
 #!/bin/sh
 set -e
 
+# show debug log
+set -x
+
 if [ -n "${GITHUB_WORKSPACE}" ]; then
   cd "${GITHUB_WORKSPACE}" || exit
 fi
@@ -111,13 +114,15 @@ if [ -z "${BUMP_LEVEL}" ]; then
 fi
 echo "Bump ${BUMP_LEVEL} version"
 
-# DO NOT FETCH in action-actionlint. we do it in previous step.
-# git fetch --tags -f # Fetch existing tags before bump.
-# # Fetch history as well because bump uses git history (git tag --merged).
-# git fetch --prune --unshallow
+# checkout releases branch
+MAJOR=$(cat .major-version)
+CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+git checkout -b "bumpr-tmp-$(date +%s)" "origin/releases/$MAJOR" || true
 
+# get current version and next
 CURRENT_VERSION="$(bump current)" || true
 NEXT_VERSION="$(bump ${BUMP_LEVEL})" || true
+git checkout "$CURRENT_BRANCH"
 
 # Set next version tag in case existing tags not found.
 if [ -z "${NEXT_VERSION}" ] && [ -z "$(git tag)" ]; then

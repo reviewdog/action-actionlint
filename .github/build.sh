@@ -17,14 +17,20 @@ docker logout ghcr.io
 # Set up Git.
 git config user.name "${GITHUB_ACTOR}"
 git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+
+# update the major version if major version is bumped
+echo "$MAJOR" > .major-version
+git add .major-version
+git commit -m "bump $MAJOR" || true
+git push origin "$CURRENT_BRANCH"
 
 # checkout releases branch
-git checkout main
-git checkout -b "releases/$MAJOR" "origin/releases/$MAJOR" || git checkout -b "releases/$MAJOR" main
-git merge -X theirs --no-ff -m "Merge branch 'main' into releases/$MAJOR" main || true
+git checkout -b "releases/$MAJOR" "origin/releases/$MAJOR" || git checkout -b "releases/$MAJOR" "$CURRENT_BRANCH"
+git merge -X theirs --no-ff -m "Merge branch '$CURRENT_BRANCH' into releases/$MAJOR" "$CURRENT_BRANCH" || true
 
 # configure to use the pre-built image
-git checkout main -- action.yml
+git checkout "$CURRENT_BRANCH" -- action.yml
 perl -i -pe "s(image:\\s*[\"']?Dockerfile[\"']?)(image: 'docker://ghcr.io/$GITHUB_REPOSITORY:$TAG')" action.yml
 git add action.yml
 git commit -m "bump $TAG"
