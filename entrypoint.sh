@@ -2,6 +2,7 @@
 
 export REVIEWDOG_GITHUB_API_TOKEN="${INPUT_GITHUB_TOKEN}"
 
+# shellcheck disable=SC2086
 actionlint -oneline ${INPUT_ACTIONLINT_FLAGS} \
     | reviewdog \
         -efm="%f:%l:%c: %m" \
