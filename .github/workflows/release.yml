@@ -11,6 +11,10 @@ jobs:
   release:
     if: ${{ github.event.action != 'labeled' }}
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
     steps:
       - uses: actions/checkout@v2
         with:
@@ -45,6 +49,10 @@ jobs:
   release-check:
     if: "${{ github.event.action == 'labeled' }}"
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
     steps:
       - uses: actions/checkout@v2
         with:
