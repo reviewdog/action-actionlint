@@ -15,6 +15,7 @@ jobs:
       contents: write
       pull-requests: write
       issues: write
+      packages: write
     steps:
       - uses: actions/checkout@v2
         with:
@@ -28,7 +29,7 @@ jobs:
           dry_run: true
 
       # build the Docker Image
-      - name:
+      - name: build the Docker Image
         if: "${{ !steps.bumpr.outputs.skip }}"
         run: |
           ./.github/build.sh
