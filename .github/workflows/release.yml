@@ -11,6 +11,11 @@ jobs:
   release:
     if: ${{ github.event.action != 'labeled' }}
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+      packages: write
     steps:
       - uses: actions/checkout@v2
         with:
@@ -24,7 +29,7 @@ jobs:
           dry_run: true
 
       # build the Docker Image
-      - name:
+      - name: build the Docker Image
         if: "${{ !steps.bumpr.outputs.skip }}"
         run: |
           ./.github/build.sh
@@ -45,6 +50,10 @@ jobs:
   release-check:
     if: "${{ github.event.action == 'labeled' }}"
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
     steps:
       - uses: actions/checkout@v2
         with:
