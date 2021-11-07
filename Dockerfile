@@ -4,7 +4,7 @@ RUN pip3 install --upgrade pip && \
     pip3 install pyflakes && \
     rm -r /root/.cache
 
-ENV SHELLCHEK_VERSION=v0.7.2
+ENV SHELLCHEK_VERSION=v0.8.0
 RUN set -x; \
   arch="$(uname -m)"; \
   echo "arch is $arch"; \
