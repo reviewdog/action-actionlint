@@ -43,7 +43,7 @@ inputs:
     required: false
 runs:
   using: 'docker'
-  image: 'docker://ghcr.io/reviewdog/action-actionlint:v1.17.0'
+  image: 'docker://ghcr.io/reviewdog/action-actionlint:v1.18.0'
 branding:
   color: red
   icon: check-circle
