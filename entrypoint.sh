@@ -1,5 +1,9 @@
 #!/bin/sh
 
+if [ "${RUNNER_DEBUG}" = "1" ] ; then
+  set -x
+fi
+
 if [ -n "${GITHUB_WORKSPACE}" ] ; then
   cd "${GITHUB_WORKSPACE}" || exit
   git config --global --add safe.directory "${GITHUB_WORKSPACE}" || exit 1
