@@ -91,6 +91,16 @@ post_warning() {
   echo "::warning ::${body_text}"
 }
 
+set_output() {
+  name=$1
+  value=$2
+  if [ -n "${GITHUB_OUTPUT}" ]; then
+    echo "$name=$value" >> "{$GITHUB_OUTPUT}"
+  else
+    echo "::set-output name=$name::$value"
+  fi
+}
+
 # Get labels and Pull Request data.
 ACTION=$(jq -r '.action' < "${GITHUB_EVENT_PATH}" )
 if [ "${ACTION}" = "labeled" ]; then
@@ -110,7 +120,7 @@ fi
 
 if [ -z "${BUMP_LEVEL}" ]; then
   echo "PR with labels for bump not found. Do nothing."
-  echo "::set-output name=skip::true"
+  set_output skip true
   exit
 fi
 echo "Bump ${BUMP_LEVEL} version"
@@ -144,11 +154,11 @@ if [ -z "${NEXT_VERSION}" ]; then
   echo "Cannot find next version."
   exit 1
 fi
-echo "::set-output name=current_version::${CURRENT_VERSION}"
-echo "::set-output name=next_version::${NEXT_VERSION}"
+set_output current_version "${CURRENT_VERSION}"
+set_output next_version "${NEXT_VERSION}"
 
 TAG_MESSAGE="${NEXT_VERSION}: PR #${PR_NUMBER} - ${PR_TITLE}"
-echo "::set-output name=message::${TAG_MESSAGE}"
+set_output message "${TAG_MESSAGE}"
 
 if [ "${INPUT_DRY_RUN}" = "true" ]; then
   echo "DRY_RUN=true. Do not tag next version."
