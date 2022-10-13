@@ -95,7 +95,7 @@ set_output() {
   name=$1
   value=$2
   if [ -n "${GITHUB_OUTPUT}" ]; then
-    echo "$name=$value" >> "{$GITHUB_OUTPUT}"
+    echo "$name=$value" >> "${GITHUB_OUTPUT}"
   else
     echo "::set-output name=$name::$value"
   fi
