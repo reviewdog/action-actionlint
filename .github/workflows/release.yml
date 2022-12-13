@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - main
+    tags:
+      - "v*.*.*"
   pull_request:
     types:
       - labeled
@@ -24,7 +26,7 @@ jobs:
       # Bump version on merging Pull Requests with specific labels.
       # (bump:major,bump:minor,bump:patch)
       - id: bumpr
-        uses: ./.github/action-bumpr
+        uses: haya14busa/action-bumpr@v1
         with:
           dry_run: true
 
@@ -59,4 +61,4 @@ jobs:
         with:
           fetch-depth: 0
       - name: Post bumpr status comment
-        uses: ./.github/action-bumpr
+        uses: haya14busa/action-bumpr@v1
