@@ -67,5 +67,12 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
+
+      # Release tags must be reachable from HEAD because the bump comment uses `git tag --merged`:
+      # https://github.com/haya14busa/bump/blob/9ab5412f5d96eb624c7e8559acbb11330be9901a/main.go#L72
+      - name: checkout to release branch
+        run: |
+          git branch -b "release/$(cat .major-version)" "origin/$(cat .major-version)"
+
       - name: Post bumpr status comment
         uses: haya14busa/action-bumpr@v1
