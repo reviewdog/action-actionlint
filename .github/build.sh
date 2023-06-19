@@ -26,6 +26,7 @@ git commit -m "bump $MAJOR" || true
 git push origin "$CURRENT_BRANCH"
 
 # checkout releases branch
+git branch -D "releases/$MAJOR" || true
 git checkout -b "releases/$MAJOR" "origin/releases/$MAJOR" || git checkout -b "releases/$MAJOR" "$CURRENT_BRANCH"
 git merge -X theirs --no-ff -m "Merge branch '$CURRENT_BRANCH' into releases/$MAJOR" "$CURRENT_BRANCH" || true
 

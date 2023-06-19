@@ -23,11 +23,11 @@ RUN apk --update add git curl && \
   rm /var/cache/apk/*
 
 # install reviewdog
-ENV REVIEWDOG_VERSION=v0.14.1
+ENV REVIEWDOG_VERSION=v0.14.2
 RUN wget -O - -q https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh | sh -s -- -b /usr/local/bin/ ${REVIEWDOG_VERSION}
 
 # install actionlint
-ENV ACTIONLINT_VERSION=1.6.24
+ENV ACTIONLINT_VERSION=1.6.25
 ENV OSTYPE=linux-gnu
 RUN cd /usr/local/bin/ && wget -O - -q https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash | sh -s -- ${ACTIONLINT_VERSION}
 
