@@ -23,6 +23,12 @@ jobs:
         with:
           fetch-depth: 0
 
+      # Release tags must be reachable from HEAD because the bump comment uses `git tag --merged`:
+      # https://github.com/haya14busa/bump/blob/9ab5412f5d96eb624c7e8559acbb11330be9901a/main.go#L72
+      - name: checkout to release branch
+        run: |
+          git branch -b "release/$(cat .major-version)" "origin/$(cat .major-version)"
+
       # Bump version on merging Pull Requests with specific labels.
       # (bump:major,bump:minor,bump:patch)
       - id: bumpr
@@ -34,6 +40,7 @@ jobs:
       - name: build the Docker Image
         if: "${{ !steps.bumpr.outputs.skip }}"
         run: |
+          git checkout main
           ./.github/build.sh
         env:
           GITHUB_TOKEN: ${{ github.token }}
