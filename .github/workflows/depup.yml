@@ -24,7 +24,7 @@ jobs:
           repo: koalaman/shellcheck
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v5
+        uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           title: "chore(deps): update shellcheck to ${{ steps.depup.outputs.latest }}"
@@ -50,7 +50,7 @@ jobs:
           repo: reviewdog/reviewdog
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v5
+        uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           title: "chore(deps): update reviewdog to ${{ steps.depup.outputs.latest }}"
@@ -76,7 +76,7 @@ jobs:
           repo: rhysd/actionlint
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v5
+        uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           title: "chore(deps): update actionlint to ${{ steps.depup.outputs.latest }}"
