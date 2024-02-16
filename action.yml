@@ -41,9 +41,20 @@ inputs:
     description: 'Additional actionlint flags'
     default: ''
     required: false
+  reviewdog_version:
+    description: 'Reviewdog version'
+    default: 'v0.17.1'
+    required: false
+  actionlint_version:
+    description: 'actionlint version'
+    default: '1.6.26'
+    required: false
 runs:
   using: 'docker'
   image: 'Dockerfile'
+  env:
+    REVIEWDOG_VERSION: ${{ inputs.reviewdog_version }}
+    ACTIONLINT_VERSION: ${{ inputs.actionlint_version }}
 branding:
   color: red
   icon: check-circle
