@@ -4,7 +4,7 @@ RUN pip3 install --upgrade pip && \
   pip3 install pyflakes && \
   rm -r /root/.cache
 
-ENV SHELLCHEK_VERSION=v0.9.0
+ENV SHELLCHEK_VERSION=v0.10.0
 RUN set -x; \
   arch="$(uname -m)"; \
   echo "arch is $arch"; \
@@ -23,7 +23,7 @@ RUN apk --update add git curl && \
   rm /var/cache/apk/*
 
 # install reviewdog
-ENV REVIEWDOG_VERSION=v0.17.1
+ENV REVIEWDOG_VERSION=v0.17.2
 RUN wget -O - -q https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh | sh -s -- -b /usr/local/bin/ ${REVIEWDOG_VERSION}
 
 # install actionlint
