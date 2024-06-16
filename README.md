@@ -44,10 +44,6 @@ actions with different config.
 Optional. Report level for reviewdog [info,warning,error].
 It's same as `-level` flag of reviewdog.
 
-### `workdir`
-
-Optional. Working directory relative to the root directory.
-
 ### `reporter`
 
 Optional. Reporter of reviewdog command [github-pr-check,github-pr-review].
@@ -56,7 +52,7 @@ It's same as `-reporter` flag of reviewdog.
 ### `filter_mode`
 
 Optional. Filtering mode for the reviewdog command [added,diff_context,file,nofilter].
-Default is added.
+Default is file.
 
 ### `fail_on_error`
 
