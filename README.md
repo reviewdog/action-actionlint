@@ -52,7 +52,7 @@ It's same as `-reporter` flag of reviewdog.
 ### `filter_mode`
 
 Optional. Filtering mode for the reviewdog command [added,diff_context,file,nofilter].
-Default is added.
+Default is file.
 
 ### `fail_on_error`
 
