@@ -12,9 +12,22 @@ fi
 export REVIEWDOG_GITHUB_API_TOKEN="${INPUT_GITHUB_TOKEN}"
 
 # shellcheck disable=SC2086
-actionlint -oneline ${INPUT_ACTIONLINT_FLAGS} \
+actionlint -oneline ${INPUT_ACTIONLINT_FLAGS} | while read -r r; do
+  shellcheck_output=" shellcheck reported issue in this script: "
+  severity=e
+
+  # Parse the severity if the output is from shellcheck
+  if echo "${r}" | grep "${shellcheck_output}"; then
+    s="$(echo "${r}" | sed -e "s/^.*${shellcheck_output}[^:]*:\([^:]\).*$/\1/g")"
+    if [ "${s}" = 'e' ] || [ "${s}" = 'w' ] || [ "${s}" = 'i' ] || [ "${s}" = 'n' ]; then
+      severity="${s}"
+    fi
+  fi
+
+  echo "${severity}:${r}"
+done \
     | reviewdog \
-        -efm="%f:%l:%c: %m" \
+        -efm="%t:%f:%l:%c: %m" \
         -name="${INPUT_TOOL_NAME}" \
         -reporter="${INPUT_REPORTER}" \
         -filter-mode="${INPUT_FILTER_MODE}" \
