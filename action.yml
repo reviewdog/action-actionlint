@@ -51,7 +51,7 @@ inputs:
     required: false
 runs:
   using: 'docker'
-  image: 'docker://ghcr.io/reviewdog/action-actionlint:v1.64.0'
+  image: 'docker://ghcr.io/reviewdog/action-actionlint:v1.64.1'
 branding:
   color: red
   icon: check-circle
