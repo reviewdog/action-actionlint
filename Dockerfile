@@ -27,7 +27,7 @@ ENV REVIEWDOG_VERSION=v0.20.3
 RUN wget -O - -q https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh | sh -s -- -b /usr/local/bin/ ${REVIEWDOG_VERSION}
 
 # install actionlint
-ENV ACTIONLINT_VERSION=1.7.6
+ENV ACTIONLINT_VERSION=1.7.7
 ENV OSTYPE=linux-gnu
 RUN cd /usr/local/bin/ && wget -O - -q https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash | sh -s -- ${ACTIONLINT_VERSION}
 
