@@ -36,6 +36,14 @@ jobs:
         with:
           dry_run: true
 
+      - name: Set up QEMU for ARM Emulation
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          use: true
+
       # build the Docker Image
       - name: build the Docker Image
         if: "${{ !steps.bumpr.outputs.skip }}"

@@ -7,11 +7,19 @@ TAG="${INPUT_TAG:-${GITHUB_REF#refs/tags/}}" # v1.2.3
 MINOR="${TAG%.*}"                            # v1.2
 MAJOR="${MINOR%.*}"                          # v1
 MESSAGE="Release ${TAG}"
+IMAGE="ghcr.io/$GITHUB_REPOSITORY:$TAG"
+
+# Login to GHCR
+printenv GITHUB_TOKEN | docker login ghcr.io --username "${GITHUB_REPOSITORY%/*}" --password-stdin
 
 # Build Docker Image
-docker build -t "ghcr.io/$GITHUB_REPOSITORY:$TAG" .
-printenv GITHUB_TOKEN | docker login ghcr.io --username "${GITHUB_REPOSITORY%/*}" --password-stdin
-docker push "ghcr.io/$GITHUB_REPOSITORY:$TAG"
+# Build and push multi-platform image
+docker buildx build \
+    --platform linux/amd64,linux/arm64 \
+    --tag "$IMAGE" \
+    --push \
+    .
+
 docker logout ghcr.io
 
 # Set up Git.
