@@ -10,5 +10,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Set up QEMU for ARM Emulation
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          use: true
+
       - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag "reviewdog-actionlint:$(date +%s)"
+        run: |
+          docker buildx build \
+            --platform linux/amd64,linux/arm64 \
+            --tag "reviewdog-actionlint:$(date +%s)" \
+            --file Dockerfile \
+            .
