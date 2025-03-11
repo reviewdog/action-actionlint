@@ -13,6 +13,8 @@ code review experience.
 
 ## Example usages
 
+### Docker-based (default)
+
 ```yaml
 name: reviewdog
 on: [pull_request]
@@ -23,6 +25,24 @@ jobs:
       - uses: actions/checkout@v4
       - uses: reviewdog/action-actionlint@v1
 ```
+
+### Dockerless
+
+If you prefer to run without Docker, a dockerless version is also available:
+
+```yaml
+name: reviewdog
+on: [pull_request]
+jobs:
+  actionlint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: reviewdog/action-actionlint/dockerless@v1
+```
+
+The dockerless version directly installs actionlint and reviewdog on the runner without using Docker.
+This can be useful in environments where Docker is not available.
 
 ## Inputs
 

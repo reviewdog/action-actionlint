@@ -19,7 +19,7 @@ jobs:
       - uses: reviewdog/action-depup@v1
         id: depup
         with:
-          file: Dockerfile
+          file: .versions
           version_name: SHELLCHEK_VERSION
           repo: koalaman/shellcheck
 
@@ -45,7 +45,7 @@ jobs:
       - uses: reviewdog/action-depup@v1
         id: depup
         with:
-          file: Dockerfile
+          file: .versions
           version_name: REVIEWDOG_VERSION
           repo: reviewdog/reviewdog
 
@@ -71,7 +71,7 @@ jobs:
       - uses: reviewdog/action-depup@v1
         id: depup
         with:
-          file: Dockerfile
+          file: .versions
           version_name: ACTIONLINT_VERSION
           repo: rhysd/actionlint
 
