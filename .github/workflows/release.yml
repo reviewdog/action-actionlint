@@ -19,7 +19,7 @@ jobs:
       issues: write
       packages: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           fetch-depth: 0
 
@@ -32,15 +32,15 @@ jobs:
       # Bump version on merging Pull Requests with specific labels.
       # (bump:major,bump:minor,bump:patch)
       - id: bumpr
-        uses: haya14busa/action-bumpr@v1
+        uses: haya14busa/action-bumpr@78ab5a104d20896c9c9122c64221b3aecf1a8cbb # v1.10.0
         with:
           dry_run: true
 
       - name: Set up QEMU for ARM Emulation
-        uses: docker/setup-qemu-action@v3
+        uses: docker/setup-qemu-action@29109295f81e9208d7d86ff1c6c12d2833863392 # v3.6.0
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+        uses: docker/setup-buildx-action@b5ca514318bd6ebac0fb2aedd5d36ec1b5c232a2 # v3.10.0
         with:
           use: true
 
@@ -55,7 +55,7 @@ jobs:
           INPUT_TAG: ${{ steps.bumpr.outputs.next_version }}
 
       # Create release.
-      - uses: shogo82148/actions-create-release@v1
+      - uses: shogo82148/actions-create-release@23f53983720ef0c8c73db148582eba2cb49c58cd # v1.7.6
         if: "${{ !steps.bumpr.outputs.skip }}"
         with:
           tag_name: ${{ steps.bumpr.outputs.next_version }}
@@ -72,7 +72,7 @@ jobs:
       pull-requests: write
       issues: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           fetch-depth: 0
 
@@ -83,4 +83,4 @@ jobs:
           git checkout -b "releases/$(cat .major-version)" "origin/releases/$(cat .major-version)"
 
       - name: Post bumpr status comment
-        uses: haya14busa/action-bumpr@v1
+        uses: haya14busa/action-bumpr@78ab5a104d20896c9c9122c64221b3aecf1a8cbb # v1.10.0
