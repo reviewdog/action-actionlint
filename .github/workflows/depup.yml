@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      - uses: reviewdog/action-depup@680d0a6dedb9c170ec21b8e1eacf7a1133937743 # v1.6.2
+      - uses: reviewdog/action-depup@94a1aaf4e4923064019214b48a43276218af7ad5 # v1.6.4
         id: depup
         with:
           file: Dockerfile
@@ -42,7 +42,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      - uses: reviewdog/action-depup@680d0a6dedb9c170ec21b8e1eacf7a1133937743 # v1.6.2
+      - uses: reviewdog/action-depup@94a1aaf4e4923064019214b48a43276218af7ad5 # v1.6.4
         id: depup
         with:
           file: Dockerfile
@@ -68,7 +68,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      - uses: reviewdog/action-depup@680d0a6dedb9c170ec21b8e1eacf7a1133937743 # v1.6.2
+      - uses: reviewdog/action-depup@94a1aaf4e4923064019214b48a43276218af7ad5 # v1.6.4
         id: depup
         with:
           file: Dockerfile
