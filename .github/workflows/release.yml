@@ -55,7 +55,7 @@ jobs:
           INPUT_TAG: ${{ steps.bumpr.outputs.next_version }}
 
       # Create release.
-      - uses: shogo82148/actions-create-release@4661dc54f7b4b564074e9fbf73884d960de569a3 # v1.7.8
+      - uses: shogo82148/actions-create-release@7b89596097b26731bda0852f1504f813499079ee # v1.7.9
         if: "${{ !steps.bumpr.outputs.skip }}"
         with:
           tag_name: ${{ steps.bumpr.outputs.next_version }}
