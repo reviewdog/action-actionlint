@@ -1,4 +1,4 @@
-FROM python:3.13-alpine
+FROM python:3.14-alpine
 
 RUN pip3 install --upgrade pip && \
   pip3 install pyflakes && \
