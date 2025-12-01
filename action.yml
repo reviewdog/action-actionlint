@@ -52,6 +52,7 @@ inputs:
 runs:
   using: 'docker'
   image: 'Dockerfile'
+  entrypoint: /entrypoint.sh
 branding:
   color: red
   icon: check-circle
