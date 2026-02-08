@@ -30,6 +30,11 @@ jobs:
 
 **Required**. Default is `${{ github.token }}`.
 
+### `workdir`
+
+Optional. Working directory relative to the root directory.
+Default is `.`.
+
 ### `actionlint_flags`
 
 Optional. actionlint flags. (actionlint -oneline `<actionlint_flags>`)
@@ -46,8 +51,9 @@ It's same as `-level` flag of reviewdog.
 
 ### `reporter`
 
-Optional. Reporter of reviewdog command [github-pr-check,github-pr-review].
+Optional. Reporter of reviewdog command [github-check,github-pr-review,github-pr-check,sarif].
 It's same as `-reporter` flag of reviewdog.
+Default is `github-check`.
 
 ### `filter_mode`
 
@@ -60,12 +66,11 @@ Optional. If set to `none`, always use exit code 0 for reviewdog. Otherwise, exi
 Possible values: [`none`, `any`, `info`, `warning`, `error`]
 Default is `none`.
 
-### `fail_on_error`
-
-Deprecated, use `fail_level` instead.
-Optional.  Exit code for reviewdog when errors are found [true,false]
-Default is `false`.
-
 ### `reviewdog_flags`
 
 Optional. Additional reviewdog flags
+
+### `output_dir`
+
+Optional. Output directory of reviewdog result. Useful for -reporter=sarif.
+Default is `../reviewdog-results`.

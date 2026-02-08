@@ -11,76 +11,45 @@ on:
 
 jobs:
   release:
-    if: ${{ github.event.action != 'labeled' }}
+    if: github.event.action != 'labeled'
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
-      issues: write
-      packages: write
     steps:
       - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
-        with:
-          fetch-depth: 0
-
-      # Release tags must be reachable from HEAD because the bump comment uses `git tag --merged`:
-      # https://github.com/haya14busa/bump/blob/9ab5412f5d96eb624c7e8559acbb11330be9901a/main.go#L72
-      - name: checkout to release branch
-        run: |
-          git checkout -b "releases/$(cat .major-version)" "origin/releases/$(cat .major-version)"
 
       # Bump version on merging Pull Requests with specific labels.
       # (bump:major,bump:minor,bump:patch)
       - id: bumpr
+        if: "!startsWith(github.ref, 'refs/tags/')"
         uses: haya14busa/action-bumpr@faf6f474bcb6174125cfc569f0b2e24cbf03d496 # v1.11.4
+
+      # Update corresponding major and minor tag.
+      # e.g. Update v1 and v1.2 when releasing v1.2.3
+      - uses: haya14busa/action-update-semver@22a3666f9309f0d72ab0ea6c49b7a8019c1eab38 # v1.3.0
+        if: "!steps.bumpr.outputs.skip"
         with:
-          dry_run: true
+          tag: ${{ steps.bumpr.outputs.next_version }}
 
-      - name: Set up QEMU for ARM Emulation
-        uses: docker/setup-qemu-action@c7c53464625b32c7a7e944ae62b3e17d2b600130 # v3.7.0
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435 # v3.11.1
+      # Get tag name.
+      - id: tag
+        uses: haya14busa/action-cond@94f77f7a80cd666cb3155084e428254fea4281fd # v1.2.1
         with:
-          use: true
+          cond: "${{ startsWith(github.ref, 'refs/tags/') }}"
+          if_true: ${{ github.ref }}
+          if_false: ${{ steps.bumpr.outputs.next_version }}
 
-      # build the Docker Image
-      - name: build the Docker Image
-        if: "${{ !steps.bumpr.outputs.skip }}"
-        run: |
-          git checkout main
-          ./.github/build.sh
+      # Create release
+      - if: "steps.tag.outputs.value != ''"
         env:
-          GITHUB_TOKEN: ${{ github.token }}
-          INPUT_TAG: ${{ steps.bumpr.outputs.next_version }}
-
-      # Create release.
-      - uses: shogo82148/actions-create-release@28d99e2a5b407558d17c15d0384fc0d7fb625b4c # v1.8.0
-        if: "${{ !steps.bumpr.outputs.skip }}"
-        with:
-          tag_name: ${{ steps.bumpr.outputs.next_version }}
-          release_name: Release ${{ steps.bumpr.outputs.next_version }}
-          body: ${{ steps.bumpr.outputs.message }}
-          draft: false
-          prerelease: false
+          TAG_NAME: ${{ steps.tag.outputs.value }}
+          CURRENT: ${{ steps.bumpr.outputs.current_version }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "${TAG_NAME}" -t "Release ${TAG_NAME/refs\/tags\//}" --generate-notes --notes-start-tag "${CURRENT}"
 
   release-check:
-    if: "${{ github.event.action == 'labeled' }}"
+    if: github.event.action == 'labeled'
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
-      issues: write
     steps:
       - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
-        with:
-          fetch-depth: 0
-
-      # Release tags must be reachable from HEAD because the bump comment uses `git tag --merged`:
-      # https://github.com/haya14busa/bump/blob/9ab5412f5d96eb624c7e8559acbb11330be9901a/main.go#L72
-      - name: checkout to release branch
-        run: |
-          git checkout -b "releases/$(cat .major-version)" "origin/releases/$(cat .major-version)"
-
       - name: Post bumpr status comment
         uses: haya14busa/action-bumpr@faf6f474bcb6174125cfc569f0b2e24cbf03d496 # v1.11.4
