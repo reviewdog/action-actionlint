@@ -1,0 +1,4 @@
+# export settings
+examples/** export-ignore
+.github/** export-ignore
+

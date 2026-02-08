@@ -19,8 +19,8 @@ jobs:
       - uses: reviewdog/action-depup@94a1aaf4e4923064019214b48a43276218af7ad5 # v1.6.4
         id: depup
         with:
-          file: Dockerfile
-          version_name: SHELLCHEK_VERSION
+          file: action.yml
+          version_name: SHELLCHECK_VERSION
           repo: koalaman/shellcheck
 
       - name: Create Pull Request
@@ -45,8 +45,8 @@ jobs:
       - uses: reviewdog/action-depup@94a1aaf4e4923064019214b48a43276218af7ad5 # v1.6.4
         id: depup
         with:
-          file: Dockerfile
-          version_name: REVIEWDOG_VERSION
+          file: action.yml
+          version_name: reviewdog_version
           repo: reviewdog/reviewdog
 
       - name: Create Pull Request
@@ -71,7 +71,7 @@ jobs:
       - uses: reviewdog/action-depup@94a1aaf4e4923064019214b48a43276218af7ad5 # v1.6.4
         id: depup
         with:
-          file: Dockerfile
+          file: action.yml
           version_name: ACTIONLINT_VERSION
           repo: rhysd/actionlint
 
