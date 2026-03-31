@@ -19,7 +19,7 @@ jobs:
       issues: write
       packages: write
     steps:
-      - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           fetch-depth: 0
 
@@ -37,10 +37,10 @@ jobs:
           dry_run: true
 
       - name: Set up QEMU for ARM Emulation
-        uses: docker/setup-qemu-action@c7c53464625b32c7a7e944ae62b3e17d2b600130 # v3.7.0
+        uses: docker/setup-qemu-action@ce360397dd3f832beb865e1373c09c0e9f86d70a # v4.0.0
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435 # v3.11.1
+        uses: docker/setup-buildx-action@4d04d5d9486b7bd6fa91e7baf45bbb4f8b9deedd # v4.0.0
         with:
           use: true
 
@@ -55,7 +55,7 @@ jobs:
           INPUT_TAG: ${{ steps.bumpr.outputs.next_version }}
 
       # Create release.
-      - uses: shogo82148/actions-create-release@28d99e2a5b407558d17c15d0384fc0d7fb625b4c # v1.8.0
+      - uses: shogo82148/actions-create-release@6a396031bc74c57403da1018fec74d24c6aa03cd # v1.9.0
         if: "${{ !steps.bumpr.outputs.skip }}"
         with:
           tag_name: ${{ steps.bumpr.outputs.next_version }}
@@ -72,7 +72,7 @@ jobs:
       pull-requests: write
       issues: write
     steps:
-      - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           fetch-depth: 0
 
