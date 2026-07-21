@@ -12,7 +12,7 @@ jobs:
     name: runner / actionlint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: actionlint
         uses: ./
         with:
@@ -20,33 +20,54 @@ jobs:
 
   reviewdog:
     name: runner / reviewdog
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-26.04
+          - ubuntu-26.04-arm
+    runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: actionlint w/ reviewdog
         uses: ./
         with:
           actionlint_flags: examples/broken-workflow.yml
-          tool_name: reviewdog
+          tool_name: reviewdog on ${{ matrix.os }}
+          level: info
 
   shellcheck:
     name: runner / shellcheck
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-26.04
+          - ubuntu-26.04-arm
+    runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: actionlint w/ shellcheck
         uses: ./
         with:
           actionlint_flags: examples/shellcheck.yml
-          tool_name: shellcheck
+          tool_name: shellcheck on ${{ matrix.os }}
+          level: info
 
   pyflakes:
     name: runner / pyflakes
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-26.04
+          - ubuntu-26.04-arm
+    runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: actionlint w/ pyflakes
         uses: ./
         with:
           actionlint_flags: examples/pyflakes.yml
-          tool_name: pyflakes
+          tool_name: pyflakes on ${{ matrix.os }}
+          level: info
