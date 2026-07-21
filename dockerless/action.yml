@@ -60,6 +60,10 @@ runs:
       shell: bash
       run: |
         "$GITHUB_ACTION_PATH/../scripts/install-shellcheck.sh"
+    - name: install actionlint
+      shell: bash
+      run: |
+        "$GITHUB_ACTION_PATH/../scripts/install-actionlint.sh"
     - name: Read versions
       id: versions
       shell: bash
@@ -68,24 +72,10 @@ runs:
         source "${{ github.action_path }}/../.versions"
 
         echo "reviewdog=${REVIEWDOG_VERSION}" >> $GITHUB_OUTPUT
-        echo "actionlint=${ACTIONLINT_VERSION}" >> $GITHUB_OUTPUT
 
     - uses: reviewdog/action-setup@v1
       with:
         reviewdog_version: ${{ steps.versions.outputs.reviewdog }}
-
-    - name: Install actionlint
-      shell: bash
-      env:
-        ACTIONLINT_VERSION: "${{ steps.versions.outputs.actionlint }}"
-        ACTIONLINT_DIR: "${{ runner.temp }}/actionlint"
-      # language=bash
-      run: |
-        mkdir -p ${ACTIONLINT_DIR}
-        bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash) \
-          ${ACTIONLINT_VERSION} \
-          ${ACTIONLINT_DIR}
-        echo "$ACTIONLINT_DIR" >> "${GITHUB_PATH}"
 
     - name: Run
       env:
