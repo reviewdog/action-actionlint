@@ -54,10 +54,8 @@ runs:
   steps:
     - name: install pyflakes
       shell: bash
-      env:
-        ACTION_PATH: ${{ github.action_path }}
       run: |
-        "$ACTION_PATH/../scripts/install-pyflakes.sh"
+        "$GITHUB_ACTION_PATH/../scripts/install-pyflakes.sh"
     - name: Read versions
       id: versions
       shell: bash
