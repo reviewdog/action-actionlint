@@ -19,7 +19,7 @@ jobs:
       - uses: reviewdog/action-depup@99f7aecf3e4d06d5a3faf190dae5dc79ac530b5a # v1.6.5
         id: depup
         with:
-          file: .versions
+          file: scripts/install-shellcheck.sh
           version_name: SHELLCHEK_VERSION
           repo: koalaman/shellcheck
 
