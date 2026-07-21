@@ -1,6 +1,8 @@
 #!/bin/sh
 
-if [ "${RUNNER_DEBUG}" = "1" ] ; then
+set -eu
+
+if [ "${RUNNER_DEBUG:-}" = "1" ] ; then
   set -x
 fi
 
