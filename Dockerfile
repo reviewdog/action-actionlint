@@ -1,25 +1,17 @@
 FROM python:3.14.6-alpine3.24@sha256:26730869004e2b9c4b9ad09cab8625e81d256d1ce97e72df5520e806b1709f92
 
+RUN apk --no-cache add git curl
+
 COPY scripts scripts
 
 # install pyflakes
 RUN ./scripts/install-pyflakes.sh
 
+# install shellcheck
+RUN ./scripts/install-shellcheck.sh
+
 # Copy versions file
 COPY .versions /.versions
-
-RUN source /.versions \
-  && set -x \
-  && arch="$(uname -m)" \
-  && echo "Detected architecture: $arch" \
-  && if [ "${arch}" = 'armv7l' ]; then arch='armv6hf'; fi \
-  && url_base='https://github.com/koalaman/shellcheck/releases/download/' \
-  && tar_file="$SHELLCHECK_VERSION/shellcheck-$SHELLCHECK_VERSION.linux.${arch}.tar.xz" \
-  && wget "${url_base}${tar_file}" -O - \
-  | tar -xvJf - --strip-components=1 -C /bin "shellcheck-$SHELLCHECK_VERSION/shellcheck" \
-  && ls -laF /bin/shellcheck
-
-RUN apk --no-cache add git curl
 
 # install reviewdog
 RUN source /.versions \
