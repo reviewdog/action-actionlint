@@ -1,6 +1,6 @@
-#!/bin/sh
-set -eu
+#!/bin/bash
 
+set -euo pipefail
 if [ -n "${RUNNER_DEBUG:-}" ] ; then
   set -x
 fi
