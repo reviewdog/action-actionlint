@@ -56,6 +56,10 @@ runs:
       shell: bash
       run: |
         "$GITHUB_ACTION_PATH/../scripts/install-pyflakes.sh"
+    - name: install shellcheck
+      shell: bash
+      run: |
+        "$GITHUB_ACTION_PATH/../scripts/install-shellcheck.sh"
     - name: Read versions
       id: versions
       shell: bash
