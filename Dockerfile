@@ -1,7 +1,8 @@
 FROM python:3.14-alpine
 
+COPY requirements.txt requirements.txt
 RUN pip3 install --upgrade pip && \
-  pip3 install pyflakes && \
+  pip3 install -r requirements.txt && \
   rm -r /root/.cache
 
 ENV SHELLCHEK_VERSION=v0.11.0
