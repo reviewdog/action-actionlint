@@ -21,6 +21,7 @@ jobs:
   reviewdog:
     name: runner / reviewdog
     strategy:
+      fail-fast: false
       matrix:
         os:
           - ubuntu-26.04
@@ -37,6 +38,7 @@ jobs:
   shellcheck:
     name: runner / shellcheck
     strategy:
+      fail-fast: false
       matrix:
         os:
           - ubuntu-26.04
@@ -53,6 +55,7 @@ jobs:
   pyflakes:
     name: runner / pyflakes
     strategy:
+      fail-fast: false
       matrix:
         os:
           - ubuntu-26.04
