@@ -14,4 +14,4 @@ else
   INSTALL_DIR=/usr/local/bin/
 fi
 
-wget -O - -q https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh | sh -s -- -b "$INSTALL_DIR" "v$REVIEWDOG_VERSION"
+curl -sSL https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh | sh -s -- -b "$INSTALL_DIR" "v$REVIEWDOG_VERSION"
