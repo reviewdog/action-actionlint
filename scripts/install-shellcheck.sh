@@ -14,7 +14,7 @@ else
   CPU_ARCH="x86_64"
 fi
 
-if [ "$GITHUB_ACTIONS" = "true" ]; then
+if [ "${GITHUB_ACTIONS:-}" = "true" ]; then
   INSTALL_DIR=$(mktemp -d)
   echo "$INSTALL_DIR" >> "$GITHUB_PATH"
 else
