@@ -1,6 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 
-set -eu
+set -euo pipefail
 if [ -n "${RUNNER_DEBUG:-}" ] ; then
   set -x
 fi
@@ -16,4 +16,4 @@ fi
 
 cd "$INSTALL_DIR"
 export OSTYPE=linux-gnu
-wget -O - -q https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash | sh -s -- "$ACTIONLINT_VERSION"
+wget -O - -q https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash | bash -s -- "$ACTIONLINT_VERSION"
