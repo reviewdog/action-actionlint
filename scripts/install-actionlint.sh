@@ -15,5 +15,4 @@ else
 fi
 
 cd "$INSTALL_DIR"
-export OSTYPE=linux-gnu
 wget -O - -q https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash | bash -s -- "$ACTIONLINT_VERSION"

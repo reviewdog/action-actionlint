@@ -11,7 +11,7 @@ RUN ./scripts/install-pyflakes.sh
 RUN ./scripts/install-shellcheck.sh
 
 # install actionlint
-RUN ./scripts/install-actionlint.sh
+RUN OSTYPE=linux-gnu ./scripts/install-actionlint.sh
 
 # install reviewdog
 RUN ./scripts/install-reviewdog.sh
