@@ -64,18 +64,10 @@ runs:
       shell: bash
       run: |
         "$GITHUB_ACTION_PATH/../scripts/install-actionlint.sh"
-    - name: Read versions
-      id: versions
+    - name: install reviewdog
       shell: bash
-      # language=bash
       run: |
-        source "${{ github.action_path }}/../.versions"
-
-        echo "reviewdog=${REVIEWDOG_VERSION}" >> $GITHUB_OUTPUT
-
-    - uses: reviewdog/action-setup@v1
-      with:
-        reviewdog_version: ${{ steps.versions.outputs.reviewdog }}
+        "$GITHUB_ACTION_PATH/../scripts/install-reviewdog.sh"
 
     - name: Run
       env:

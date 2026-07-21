@@ -1,0 +1,17 @@
+#!/bin/sh
+
+set -eu
+if [ -n "${RUNNER_DEBUG:-}" ] ; then
+  set -x
+fi
+
+REVIEWDOG_VERSION=0.20.3
+
+if [ "${GITHUB_ACTIONS:-}" = "true" ]; then
+  INSTALL_DIR=$(mktemp -d)
+  echo "$INSTALL_DIR" >> "$GITHUB_PATH"
+else
+  INSTALL_DIR=/usr/local/bin/
+fi
+
+wget -O - -q https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh | sh -s -- -b "$INSTALL_DIR" "$REVIEWDOG_VERSION"

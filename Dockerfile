@@ -13,12 +13,8 @@ RUN ./scripts/install-shellcheck.sh
 # install actionlint
 RUN ./scripts/install-actionlint.sh
 
-# Copy versions file
-COPY .versions /.versions
-
 # install reviewdog
-RUN source /.versions \
-  && wget -O - -q https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh | sh -s -- -b /usr/local/bin/ $REVIEWDOG_VERSION
+RUN ./scripts/install-reviewdog.sh
 
 COPY entrypoint.sh /entrypoint.sh
 
