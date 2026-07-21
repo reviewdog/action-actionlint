@@ -58,9 +58,8 @@ jobs:
         with:
           tag_name: ${{ steps.bumpr.outputs.next_version }}
           release_name: Release ${{ steps.bumpr.outputs.next_version }}
-          body: ${{ steps.bumpr.outputs.message }}
-          draft: false
-          prerelease: false
+          generate_release_notes: true
+          notes_start_tag: "${{ steps.bumpr.outputs.current_version }}"
 
   release-check:
     if: "${{ github.event.action == 'labeled' }}"
