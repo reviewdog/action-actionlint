@@ -1,6 +1,8 @@
 #!/bin/sh
 
-if [ "${RUNNER_DEBUG}" = "1" ] ; then
+set -eu
+
+if [ "${RUNNER_DEBUG:-}" = "1" ] ; then
   set -x
 fi
 
@@ -8,6 +10,23 @@ if [ -n "${GITHUB_WORKSPACE}" ] ; then
   cd "${GITHUB_WORKSPACE}" || exit
   git config --global --add safe.directory "${GITHUB_WORKSPACE}" || exit 1
 fi
+
+# show versions of tools
+echo "::group:: pyflakes version"
+pyflakes --version
+echo "::endgroup::"
+
+echo "::group:: shellcheck version"
+shellcheck --version
+echo "::endgroup::"
+
+echo "::group:: actionlint version"
+actionlint --version
+echo "::endgroup::"
+
+echo "::group:: reviewdog version"
+reviewdog --version
+echo "::endgroup::"
 
 export REVIEWDOG_GITHUB_API_TOKEN="${INPUT_GITHUB_TOKEN}"
 

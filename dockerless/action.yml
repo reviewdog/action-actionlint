@@ -1,5 +1,5 @@
-name: "actionlint with reviewdog"
-description: "run actionlint with reviewdog"
+name: "actionlint with reviewdog (dockerless)"
+description: "run actionlint with reviewdog."
 author: "@shogo82148"
 inputs:
   github_token:
@@ -50,9 +50,40 @@ inputs:
     default: ""
     required: false
 runs:
-  using: "docker"
-  image: "Dockerfile"
-  entrypoint: /entrypoint.sh
+  using: "composite"
+  steps:
+    - name: install pyflakes
+      shell: bash
+      run: |
+        "$GITHUB_ACTION_PATH/../scripts/install-pyflakes.sh"
+    - name: install shellcheck
+      shell: bash
+      run: |
+        "$GITHUB_ACTION_PATH/../scripts/install-shellcheck.sh"
+    - name: install actionlint
+      shell: bash
+      run: |
+        "$GITHUB_ACTION_PATH/../scripts/install-actionlint.sh"
+    - name: install reviewdog
+      shell: bash
+      run: |
+        "$GITHUB_ACTION_PATH/../scripts/install-reviewdog.sh"
+
+    - name: Run
+      env:
+        ACTION_PATH: ${{ github.action_path }}
+        INPUT_GITHUB_TOKEN: ${{ inputs.github_token }}
+        INPUT_TOOL_NAME: ${{ inputs.tool_name }}
+        INPUT_LEVEL: ${{ inputs.level }}
+        INPUT_REPORTER: ${{ inputs.reporter }}
+        INPUT_FILTER_MODE: ${{ inputs.filter_mode }}
+        INPUT_FAIL_LEVEL: ${{ inputs.fail_level }}
+        INPUT_FAIL_ON_ERROR: ${{ inputs.fail_on_error }}
+        INPUT_REVIEWDOG_FLAGS: ${{ inputs.reviewdog_flags }}
+        INPUT_ACTIONLINT_FLAGS: ${{ inputs.actionlint_flags }}
+      shell: bash
+      run: $ACTION_PATH/../entrypoint.sh
+
 branding:
   color: red
   icon: check-circle

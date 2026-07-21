@@ -1,0 +1,85 @@
+name: reviewdog
+on: [pull_request]
+
+permissions:
+  contents: read
+  checks: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  actionlint:
+    name: runner / actionlint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: actionlint
+        uses: ./dockerless/
+        with:
+          tool_name: dockerless actionlint
+
+  reviewdog:
+    name: runner / reviewdog
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-slim
+          - ubuntu-26.04
+          - ubuntu-26.04-arm
+          - macos-latest
+          - windows-latest
+          - windows-11-arm
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: actionlint w/ reviewdog
+        uses: ./dockerless/
+        with:
+          actionlint_flags: examples/broken-workflow.yml
+          tool_name: dockerless reviewdog on ${{ matrix.os }}
+          level: info
+
+  shellcheck:
+    name: runner / shellcheck
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-slim
+          - ubuntu-26.04
+          - ubuntu-26.04-arm
+          - macos-latest
+          - windows-latest
+          - windows-11-arm
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: actionlint w/ shellcheck
+        uses: ./dockerless/
+        with:
+          actionlint_flags: examples/shellcheck.yml
+          tool_name: dockerless shellcheck on ${{ matrix.os }}
+          level: info
+
+  pyflakes:
+    name: runner / pyflakes
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-slim
+          - ubuntu-26.04
+          - ubuntu-26.04-arm
+          - macos-latest
+          - windows-latest
+          - windows-11-arm
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: actionlint w/ pyflakes
+        uses: ./dockerless/
+        with:
+          actionlint_flags: examples/pyflakes.yml
+          tool_name: dockerless pyflakes on ${{ matrix.os }}
+          level: info

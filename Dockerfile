@@ -1,36 +1,20 @@
 FROM python:3.14.6-alpine3.24@sha256:26730869004e2b9c4b9ad09cab8625e81d256d1ce97e72df5520e806b1709f92
 
-COPY requirements.txt requirements.txt
-RUN pip3 install --upgrade pip && \
-  pip3 install -r requirements.txt && \
-  rm -r /root/.cache
+RUN apk --no-cache add git curl bash
 
-ENV SHELLCHEK_VERSION=v0.11.0
-RUN set -x; \
-  arch="$(uname -m)"; \
-  echo "arch is $arch"; \
-  if [ "${arch}" = 'armv7l' ]; then \
-  arch='armv6hf'; \
-  fi; \
-  url_base='https://github.com/koalaman/shellcheck/releases/download/'; \
-  tar_file="${SHELLCHEK_VERSION}/shellcheck-${SHELLCHEK_VERSION}.linux.${arch}.tar.xz"; \
-  wget "${url_base}${tar_file}" -O - | tar xJf -; \
-  mv "shellcheck-${SHELLCHEK_VERSION}/shellcheck" /bin/; \
-  rm -rf "shellcheck-${SHELLCHEK_VERSION}"; \
-  ls -laF /bin/shellcheck
+COPY scripts scripts
 
-RUN apk --update add git curl && \
-  rm -rf /var/lib/apt/lists/* && \
-  rm /var/cache/apk/*
+# install pyflakes
+RUN ./scripts/install-pyflakes.sh
 
-# install reviewdog
-ENV REVIEWDOG_VERSION=v0.21.0
-RUN wget -O - -q https://raw.githubusercontent.com/reviewdog/reviewdog/fd59714416d6d9a1c0692d872e38e7f8448df4fc/install.sh | sh -s -- -b /usr/local/bin/ ${REVIEWDOG_VERSION}
+# install shellcheck
+RUN ./scripts/install-shellcheck.sh
 
 # install actionlint
-ENV ACTIONLINT_VERSION=1.7.12
-ENV OSTYPE=linux-gnu
-RUN cd /usr/local/bin/ && wget -O - -q https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash | sh -s -- ${ACTIONLINT_VERSION}
+RUN OSTYPE=linux-gnu ./scripts/install-actionlint.sh
+
+# install reviewdog
+RUN ./scripts/install-reviewdog.sh
 
 COPY entrypoint.sh /entrypoint.sh
 
