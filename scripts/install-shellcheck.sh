@@ -29,6 +29,8 @@ case "${OS_NAME}" in
     curl -sSL "https://github.com/koalaman/shellcheck/releases/download/v${SHELLCHECK_VERSION}/shellcheck-v${SHELLCHECK_VERSION}.darwin.${CPU_ARCH}.tar.xz" | tar -xJf - --strip-components=1 -C "${INSTALL_DIR}" "shellcheck-v${SHELLCHECK_VERSION}/shellcheck"
     ;;
   *) # windows
-    :
+    curl -sSL "https://github.com/koalaman/shellcheck/releases/download/v${SHELLCHECK_VERSION}/shellcheck-v${SHELLCHECK_VERSION}.zip" -o shellcheck.zip
+    unzip shellcheck.zip -d "${INSTALL_DIR}"
+    rm shellcheck.zip
     ;;
 esac
