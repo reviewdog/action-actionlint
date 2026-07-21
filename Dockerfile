@@ -1,7 +1,8 @@
-FROM python:3.13-alpine
+FROM python:3.14.6-alpine3.24@sha256:26730869004e2b9c4b9ad09cab8625e81d256d1ce97e72df5520e806b1709f92
 
+COPY requirements.txt requirements.txt
 RUN pip3 install --upgrade pip && \
-  pip3 install pyflakes && \
+  pip3 install -r requirements.txt && \
   rm -r /root/.cache
 
 # Copy versions file
