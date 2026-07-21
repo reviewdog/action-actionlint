@@ -34,6 +34,7 @@ jobs:
         with:
           actionlint_flags: examples/broken-workflow.yml
           tool_name: reviewdog on ${{ matrix.os }}
+          level: info
 
   shellcheck:
     name: runner / shellcheck
@@ -51,6 +52,7 @@ jobs:
         with:
           actionlint_flags: examples/shellcheck.yml
           tool_name: shellcheck on ${{ matrix.os }}
+          level: info
 
   pyflakes:
     name: runner / pyflakes
@@ -68,3 +70,4 @@ jobs:
         with:
           actionlint_flags: examples/pyflakes.yml
           tool_name: pyflakes on ${{ matrix.os }}
+          level: info
