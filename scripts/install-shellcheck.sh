@@ -5,7 +5,7 @@ if [ -n "${RUNNER_DEBUG:-}" ] ; then
   set -x
 fi
 
-SHELLCHECK_VERSION=0.10.0
+SHELLCHECK_VERSION=0.11.0
 OS_NAME=$(uname -s | tr '[:upper:]' '[:lower:]')
 ARCH=$(uname -m)
 if [ "${ARCH}" = "arm64" ] || [ "${ARCH}" = "aarch64" ]; then
