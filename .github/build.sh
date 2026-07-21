@@ -19,7 +19,7 @@ docker buildx build \
     --tag "$IMAGE" \
     --push \
     .
-
+DIGEST=$(docker buildx imagetools inspect "$IMAGE" --format "{{json .Manifest}}" | jq -r '.digest')
 docker logout ghcr.io
 
 # Set up Git.
@@ -40,7 +40,7 @@ git merge -X theirs --no-ff -m "Merge branch '$CURRENT_BRANCH' into releases/$MA
 
 # configure to use the pre-built image
 git checkout "$CURRENT_BRANCH" -- action.yml
-perl -i -pe "s(image:\\s*[\"']?Dockerfile[\"']?)(image: 'docker://ghcr.io/$GITHUB_REPOSITORY:$TAG')" action.yml
+perl -i -pe "s(image:\\s*[\"']?Dockerfile[\"']?)(image: 'docker://ghcr.io/$GITHUB_REPOSITORY:$TAG\\@$DIGEST')" action.yml
 git add action.yml
 git commit -m "bump $TAG"
 git push origin "releases/$MAJOR"
