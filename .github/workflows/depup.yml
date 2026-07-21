@@ -20,7 +20,7 @@ jobs:
         id: depup
         with:
           file: scripts/install-shellcheck.sh
-          version_name: SHELLCHEK_VERSION
+          version_name: SHELLCHECK_VERSION
           repo: koalaman/shellcheck
 
       - name: Create Pull Request
