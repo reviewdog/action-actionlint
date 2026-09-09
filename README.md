@@ -49,7 +49,7 @@ name: reviewdog
 on: [pull_request]
 jobs:
   actionlint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: reviewdog/action-actionlint/dockerless@d290e336d5a743810aef4404f757dc862276d2ae # v1.73.4
