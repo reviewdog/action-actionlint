@@ -11,6 +11,20 @@ code review experience.
 ![example of shellcheck](https://user-images.githubusercontent.com/1157344/126648951-b712cfbf-e12f-4d4b-842e-2c15b5181ae5.png)
 ![example of pyflakes](https://user-images.githubusercontent.com/1157344/126649211-c4943c9c-7238-486c-9b28-8e39bd172a8a.png)
 
+## Required Permissions
+
+The action requires the following permissions:
+
+```yaml
+permissions:
+  contents: read
+  checks: write
+  issues: write
+  pull-requests: write
+```
+
+See [Assigning permissions to jobs](https://docs.github.com/en/actions/using-jobs/assigning-permissions-to-jobs) for more details.
+
 ## Example usages
 
 ### Docker-based (default)
@@ -83,7 +97,7 @@ Default is `none`.
 ### `fail_on_error`
 
 Deprecated, use `fail_level` instead.
-Optional.  Exit code for reviewdog when errors are found [true,false]
+Optional. Exit code for reviewdog when errors are found [true,false]
 Default is `false`.
 
 ### `reviewdog_flags`
