@@ -11,6 +11,20 @@ code review experience.
 ![example of shellcheck](https://user-images.githubusercontent.com/1157344/126648951-b712cfbf-e12f-4d4b-842e-2c15b5181ae5.png)
 ![example of pyflakes](https://user-images.githubusercontent.com/1157344/126649211-c4943c9c-7238-486c-9b28-8e39bd172a8a.png)
 
+## Required Permissions
+
+The action requires the following permissions:
+
+```yaml
+permissions:
+  contents: read
+  checks: write
+  issues: write
+  pull-requests: write
+```
+
+See [Assigning permissions to jobs](https://docs.github.com/en/actions/using-jobs/assigning-permissions-to-jobs) for more details.
+
 ## Example usages
 
 ### Docker-based (default)
@@ -22,8 +36,8 @@ jobs:
   actionlint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      - uses: reviewdog/action-actionlint@a5524e1c19e62881d79c1f1b9b6f09f16356e281 # v1.65.2
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: reviewdog/action-actionlint@d290e336d5a743810aef4404f757dc862276d2ae # v1.73.4
 ```
 
 ### Dockerless
@@ -35,10 +49,10 @@ name: reviewdog
 on: [pull_request]
 jobs:
   actionlint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
-      - uses: actions/checkout@v4
-      - uses: reviewdog/action-actionlint/dockerless@v1
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: reviewdog/action-actionlint/dockerless@d290e336d5a743810aef4404f757dc862276d2ae # v1.73.4
 ```
 
 The dockerless version directly installs actionlint and reviewdog on the runner without using Docker.
@@ -83,7 +97,7 @@ Default is `none`.
 ### `fail_on_error`
 
 Deprecated, use `fail_level` instead.
-Optional.  Exit code for reviewdog when errors are found [true,false]
+Optional. Exit code for reviewdog when errors are found [true,false]
 Default is `false`.
 
 ### `reviewdog_flags`
