@@ -1,6 +1,6 @@
 # GitHub Action: Run actionlint with reviewdog
 
-This action runs [actionlint](https://github.com/rhysd/actionlint) with
+This action runs [actionlint](https://github.com/kjanat/actionlint) with
 [reviewdog](https://github.com/reviewdog/reviewdog) on pull requests to improve
 code review experience.
 
