@@ -34,8 +34,10 @@ actionlint_out="$(mktemp)"
 trap 'rm -f "${actionlint_out}"' EXIT
 
 set +e
-# shellcheck disable=SC2086
-actionlint -oneline ${INPUT_ACTIONLINT_FLAGS} > "${actionlint_out}"
+# Re-split INPUT_ACTIONLINT_FLAGS following shell quoting rules so that
+# flag values containing spaces (e.g. -ignore="foo bar") survive intact.
+eval "set -- ${INPUT_ACTIONLINT_FLAGS}"
+actionlint -oneline "$@" > "${actionlint_out}"
 actionlint_exit=$?
 set -e
 
@@ -47,7 +49,10 @@ if [ "${actionlint_exit}" -ge 2 ]; then
   exit "${actionlint_exit}"
 fi
 
-# shellcheck disable=SC2086
+# Re-split INPUT_REVIEWDOG_FLAGS following shell quoting rules so that flag
+# values containing spaces (e.g. -diff="git diff main") survive intact.
+eval "set -- ${INPUT_REVIEWDOG_FLAGS}"
+
 while read -r r; do
   shellcheck_output=" shellcheck reported issue in this script: "
   severity=e
@@ -70,7 +75,7 @@ done < "${actionlint_out}" \
         -fail-level="${INPUT_FAIL_LEVEL}" \
         -fail-on-error="${INPUT_FAIL_ON_ERROR}" \
         -level="${INPUT_LEVEL}" \
-        ${INPUT_REVIEWDOG_FLAGS}
+        "$@"
 exit_code=$?
 
 exit "${exit_code}"
