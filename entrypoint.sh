@@ -30,8 +30,25 @@ echo "::endgroup::"
 
 export REVIEWDOG_GITHUB_API_TOKEN="${INPUT_GITHUB_TOKEN}"
 
+actionlint_out="$(mktemp)"
+trap 'rm -f "${actionlint_out}"' EXIT
+
+set +e
 # shellcheck disable=SC2086
-actionlint -oneline ${INPUT_ACTIONLINT_FLAGS} | while read -r r; do
+actionlint -oneline ${INPUT_ACTIONLINT_FLAGS} > "${actionlint_out}"
+actionlint_exit=$?
+set -e
+
+# actionlint exit codes: 0=no problem, 1=problems found, 2=invalid command
+# line option, 3=fatal error while checking. 2 and 3 are operational
+# failures of actionlint itself and must not be swallowed by reviewdog.
+if [ "${actionlint_exit}" -ge 2 ]; then
+  cat "${actionlint_out}"
+  exit "${actionlint_exit}"
+fi
+
+# shellcheck disable=SC2086
+while read -r r; do
   shellcheck_output=" shellcheck reported issue in this script: "
   severity=e
 
@@ -44,7 +61,7 @@ actionlint -oneline ${INPUT_ACTIONLINT_FLAGS} | while read -r r; do
   fi
 
   echo "${severity}:${r}"
-done \
+done < "${actionlint_out}" \
     | reviewdog \
         -efm="%t:%f:%l:%c: %m" \
         -name="${INPUT_TOOL_NAME}" \
@@ -56,4 +73,4 @@ done \
         ${INPUT_REVIEWDOG_FLAGS}
 exit_code=$?
 
-exit $exit_code
+exit "${exit_code}"
