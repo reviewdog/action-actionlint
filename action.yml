@@ -51,7 +51,7 @@ inputs:
     required: false
 runs:
   using: "docker"
-  image: 'docker://ghcr.io/reviewdog/action-actionlint:v1.76.0@sha256:82a794e5b3e1983ff2ce2111a6d46e765c740c26a9f2f0c2cfdcde9a2300c81c'
+  image: 'docker://ghcr.io/reviewdog/action-actionlint:v1.76.1@sha256:1eb2675017d8ce2aa8bd96b2530c5dc38b94dd027fcd0ecb5142df764e2c1508'
   entrypoint: /entrypoint.sh
 branding:
   color: red
