@@ -1,1 +1,1 @@
-pyflakes==4.0.1
+pyflakes==4.0.2
