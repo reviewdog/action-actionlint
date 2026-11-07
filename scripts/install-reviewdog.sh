@@ -5,7 +5,7 @@ if [ -n "${RUNNER_DEBUG:-}" ] ; then
   set -x
 fi
 
-REVIEWDOG_VERSION=0.21.2
+REVIEWDOG_VERSION=0.21.3
 
 if [ "${GITHUB_ACTIONS:-}" = "true" ]; then
   INSTALL_DIR=$(mktemp -d)
