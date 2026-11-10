@@ -5,7 +5,7 @@ if [ -n "${RUNNER_DEBUG:-}" ] ; then
   set -x
 fi
 
-ACTIONLINT_VERSION=1.17.0
+ACTIONLINT_VERSION=1.17.1
 
 if [ "${GITHUB_ACTIONS:-}" = "true" ]; then
   INSTALL_DIR=$(mktemp -d)
